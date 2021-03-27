@@ -7,11 +7,11 @@ class Graph:
         self.nodes: dict[int:Node] = {}
         self.edges: List[Edge] = []
 
-    def add_node(self, node: Node = Node()) -> None:
+    def add_node(self, node: Node) -> None:
         self.nodes.update({node.id: node})
 
     def connect(self, node1: int, node2: int) -> None:
-        if node1 not in self.nodes.keys or node2 not in self.nodes.keys:
+        if node1 not in self.nodes.keys() or node2 not in self.nodes.keys():
             raise Exception("nodes not in graph")
 
         e = Edge(self.nodes[node1], self.nodes[node2])
