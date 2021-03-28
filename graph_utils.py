@@ -28,6 +28,12 @@ class Node:
     def get_tag2(self):
         return self.tag2
 
+    def set_tag3(self, tag: any = None):
+        self.tag3 = tag
+
+    def get_tag3(self):
+        return self.tag3
+
     def __str__(self):
         return "The ID is: "  + str(self.id)
 
@@ -39,9 +45,16 @@ class Edge:
     def __init__(self, src: Node, dest: Node):
         self.src = src
         self.dest = dest
+        self.isInMatch = False
 
     def get_src(self):
         return self.src
 
     def get_dest(self):
         return self.dest
+
+    def get_is_in(self):
+        return self.isInMatch
+
+    def set_is_in(self,isIn: bool= False):
+        self.isInMatch = isIn
