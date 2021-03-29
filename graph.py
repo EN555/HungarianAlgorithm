@@ -21,6 +21,11 @@ class Graph:
         self.nodes[node2].connectedEdges.append(e2)
         self.edges.append(e2)
 
+    def set_is_in(self, src: int, dest: int, isin: bool = False):
+        for edge in self.get_list_edges():
+            if edge.get_src().get_ID() == src and edge.get_dest().get_ID() == dest:
+                edge.set_is_in(isin)
+
     def connect_direct(self, node1: int, node2: int) -> None:
         if node1 not in self.nodes.keys() or node2 not in self.nodes.keys():
             raise Exception("nodes not in graph")

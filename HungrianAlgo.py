@@ -16,15 +16,15 @@ class HungarianAlgo:
 
     def find_max_match(self):  # main function
         is_find = True
-        num =0
-        while is_find and num<2:
+        num = 0
+        while is_find and num < 6:
             self.divide_to_set(self.graph)  # first divide the graph to four groups
             self.convert_to_direct_graph()
             self.clear_All_lists()
             self.divide_to_set(self.temp_graph)  # first divide the graph to four groups
             is_find = self.find_m_augmenting_path()  # check if have any path from A to B
             self.clear_All_lists()
-            num+=1
+            num += 1
 
     def clear_All_lists(self):
         self.listA.clear()  # delete all the the items from the lists
@@ -45,15 +45,14 @@ class HungarianAlgo:
 
     def convert_to_direct_graph(self):  # create direct graph as hungarian algorithm ask
         self.temp_graph = Graph()
-
         # copy all the nodes from the graph
         for node in self.graph.get_dic_nodes().values():
-            new_node= Node()
+            new_node= Node((0,0), node.get_side())
             new_node.set_ID(node.get_ID())
             self.temp_graph.add_node(new_node)
 
         # move on all the A group
-        for node in self.listA: # connect all the graph
+        for node in self.listA:  # connect all the graph
             for edge in node.get_list_edge():
                 self.temp_graph.connect_direct(edge.get_src().get_ID(), edge.get_dest().get_ID())
 
@@ -62,9 +61,9 @@ class HungarianAlgo:
             for edge in node.get_list_edge():
               if edge.get_dest() in self.listAm:
                   self.temp_graph.connect(edge.get_src().get_ID(), edge.get_dest().get_ID())
-
+                  self.temp_graph.set_is_in(edge.get_src().get_ID(), edge.get_dest().get_ID(),True)
         # move on all the Am group
-        for node in self.listBm:  # connect all the graph
+        for node in self.listAm:  # connect all the graph
             for edge in node.get_list_edge():
                 if edge.get_dest() in self.listB:
                     self.temp_graph.connect(edge.get_src().get_ID(), edge.get_dest().get_ID())
@@ -73,53 +72,31 @@ class HungarianAlgo:
         for i in range(0,len(path) -1):
             if i%2 ==0:
                 edge1 = self.graph.get_edge_by_id(path[i].get_ID(), path[i+1].get_ID())
-                edge1.set_is_in("True")
+                edge1.set_is_in(True)
                 edge2 = self.graph.get_edge_by_id(path[i+1].get_ID(), path[i].get_ID())
-                edge2.set_is_in("True")
+                edge2.set_is_in(True)
             else:
                 edge1 = self.graph.get_edge(path[i].get_ID(), path[i + 1].get_ID())
-                edge1.set_is_in("False")
+                edge1.set_is_in(False)
                 edge2 = self.graph.get_edge(path[i].get_ID(), path[i + 1].get_ID())
-                edge2.set_is_in("False")
+                edge2.set_is_in(False)
 
     def divide_to_set(self, graph: Graph = None):
-        # init all the nodes in the graph
         for node in graph.get_dic_nodes().values():
-            node.set_tag1(-1)
-        q = queue.Queue()
-
-        # sort to A and B - bipartite graph
-        list(graph.get_dic_nodes().values())[0].set_tag1(1)
-        self.listA.append(list(graph.get_dic_nodes().values())[0])  # listA = 1
-        q.put(list(graph.get_dic_nodes().values())[0])
-
-        for uncheck in graph.get_dic_nodes().values():
-            if uncheck.get_tag1() == -1:
-                uncheck.set_tag1(1)
-                self.listA.append(uncheck)  # listA = 1
-                q.put(uncheck)
-                while q.empty() != True:
-                    node = q.get()
-                    for edge in node.get_list_edge():
-                        nei = edge.get_dest()
-                        if nei.get_tag1() == -1:
-                            nei.set_tag1(1 - node.get_tag1())
-                            q.put(nei)
-                            if nei.get_tag1() == 1:
-                                self.listA.append(nei)
-                            else:
-                                self.listB.append(nei)
-
+            if node.get_side()== 0:
+                self.listA.append(node)
+            else:
+                self.listB.append(node)
         # divide A to two sets A intersection M, A and same for B
         for node in self.listA:  # insert to Am
             for edge in node.get_list_edge():
-                if edge.get_is_in() == "True":
+                if edge.get_is_in():
                     self.listAm.append(node)
                     self.listA.remove(node)
 
         for node in self.listB:  # insert to Bm
             for edge in node.get_list_edge():
-                if edge.get_is_in() == "True":
+                if edge.get_is_in():
                     self.listBm.append(node)
                     self.listB.remove(node)
 
@@ -183,35 +160,33 @@ if __name__ == '__main__':
 ###############
 # a ----- d
 # b ----- e
-# c ----- f
 ###############
 
-    a = Node()
-    b = Node()
-    c = Node()
-    d = Node()
-    # e = Node()
-    # f = Node()
+    a = Node((0, 0), 0)
+    b = Node((0, 0), 0)
+    c = Node((0, 0), 0)
+    d = Node((0, 0), 1)
+    e = Node((0, 0), 1)
+    f = Node((0, 0), 1)
 
     g = Graph()
-
-    g.add_node(a), g.add_node(b), g.add_node(c), g.add_node(d)\
-    # , g.add_node(e), g.add_node(f)
-
+    g.add_node(a), g.add_node(b), g.add_node(c), g.add_node(d), g.add_node(e), g.add_node(f)
+    g.connect(0, 3)
     g.connect(1, 4)
-    g.connect(2, 3)
-    # g.connect(3, 6)
+    g.connect(0,5)
+    g.connect(1,3)
+    g.connect(1,4)
+    g.connect(2, 5)
 
     h = HungarianAlgo(g)
-    # print(h.get_listA())
-    # print(h.get_listB())
-    # print(h.get_listAm())
-    # print(h.get_listBm())
     h.find_max_match()
-    print(h.get_listA())
-    print(h.get_listB())
-    print(h.get_listAm())
-    print(h.get_listBm())
+
+######################################
+    print("The result is: ")
+    for edge in h.get_graph().get_list_edges():
+        print(str(edge) +" " +str(edge.get_is_in()))
+#####################################
+
 
 
 

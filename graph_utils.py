@@ -42,6 +42,9 @@ class Node:
     def get_tag3(self):
         return self.tag3
 
+    def get_side(self):
+        return self.side
+
     def __str__(self):
         return "The ID is: "  + str(self.id)
 
