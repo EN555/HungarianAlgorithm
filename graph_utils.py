@@ -13,6 +13,12 @@ class Node:
         self.tag3: any = None  # for algorithms
         self.tag4: any = None  # for algorithms
 
+    def get_ID(self):
+        return self.id
+
+    def set_ID(self, ID: int):
+        self.id = ID
+
     def get_list_edge(self):
         return self.connectedEdges
 
@@ -58,3 +64,9 @@ class Edge:
 
     def set_is_in(self,isIn: bool= False):
         self.isInMatch = isIn
+
+    def __str__(self):
+        return "The src is: " + str(self.src) + " The dest is: " + str(self.dest)
+
+    def __repr__(self):
+        return "The src is: " + str(self.src) + " The dest is: " + str(self.dest)
