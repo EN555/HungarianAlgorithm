@@ -42,6 +42,12 @@ class Node:
     def get_tag3(self):
         return self.tag3
 
+    def set_tag4(self, tag: any = None):
+        self.tag4 = tag
+
+    def get_tag4(self):
+        return self.tag4
+
     def get_side(self):
         return self.side
 
