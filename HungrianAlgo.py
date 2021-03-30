@@ -22,7 +22,9 @@ class HungarianAlgo:
             self.convert_to_direct_graph()
             self.clear_All_lists()
             self.divide_to_set(self.temp_graph)  # first divide the graph to four groups
-            is_find = self.find_m_augmenting_path()  # check if have any path from A to B
+            is_find, path = self.find_m_augmenting_path()  # check if have any path from A to B
+            if is_find:
+                self.augment_the_path(path)
             self.clear_All_lists()
 
     def clear_All_lists(self):
@@ -33,14 +35,14 @@ class HungarianAlgo:
 
     def find_m_augmenting_path(self) -> bool:  # move on all the A group nodes if find so augment
         find = False
+        path = []
         for node in self.listA:
             self.bfs(node)
             path = self.shortest_path(node)
             if path is not None:     # if find path need to update the sets
-                self.augment_the_path(path)
                 find = True
                 break
-        return find
+        return find, path
 
     def convert_to_direct_graph(self):  # create direct graph as hungarian algorithm ask
         self.temp_graph = Graph()
@@ -179,16 +181,16 @@ if __name__ == '__main__':
 # b ----- e
 ###############
 
-    node1 = Node((0, 0), 0)
-    node2 = Node((0, 0), 0)
-    node3 = Node((0, 0), 1)
-    node4 = Node((0, 0), 1)
-    node5 = Node((0, 0), 1)
-    node6 = Node((0, 0), 1)
-    node7 = Node((0, 0), 1)
-    node8 = Node((0, 0), 1)
-    node9 = Node((0, 0), 1)
-    node10 = Node((0, 0), 1)
+    node1 = Node((0, 0), 'left')
+    node2 = Node((0, 0), 'left')
+    node3 = Node((0, 0), 'right')
+    node4 = Node((0, 0), 'right')
+    node5 = Node((0, 0), 'right')
+    node6 = Node((0, 0), 'right')
+    node7 = Node((0, 0), 'right')
+    node8 = Node((0, 0), 'right')
+    node9 = Node((0, 0), 'right')
+    node10 = Node((0, 0), 'right')
 
     g = Graph()
     g.add_node(node1), g.add_node(node2), g.add_node(node3), g.add_node(node4), g.add_node(node5)
