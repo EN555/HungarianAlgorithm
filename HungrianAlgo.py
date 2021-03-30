@@ -17,14 +17,13 @@ class HungarianAlgo:
     def find_max_match(self):  # main function
         is_find = True
         num = 0
-        while is_find and num<3:
+        while is_find:
             self.divide_to_set(self.graph)  # first divide the graph to four groups
             self.convert_to_direct_graph()
             self.clear_All_lists()
             self.divide_to_set(self.temp_graph)  # first divide the graph to four groups
             is_find = self.find_m_augmenting_path()  # check if have any path from A to B
             self.clear_All_lists()
-            num += 1
 
     def clear_All_lists(self):
         self.listA.clear()  # delete all the the items from the lists
@@ -90,23 +89,27 @@ class HungarianAlgo:
             else:
                 self.listB.append(node)
         # divide A to two sets A intersection M, A and same for B
-        # print("ListA" + str(self.listA))
+        temp_list = []
         for node in self.listA:  # insert to Am
             for edge in node.get_list_edge():
                 if edge.get_is_in():
                     self.listAm.append(node)
                     self.listBm.append(edge.get_dest())
-                    self.listA.remove(node)
+                    temp_list.append(node)
                     self.listB.remove(edge.get_dest())
+        for node in temp_list:
+            self.listA.remove(node)
+        temp_list.clear()
 
         for node in self.listB:  # insert to Bm
             for edge in node.get_list_edge():
                 if edge.get_is_in():
                     self.listBm.append(node)
                     self.listAm.append(edge.get_dest())
-                    self.listB.remove(node)
+                    temp_list.append(node)
                     self.listA.remove(edge.get_dest())
-
+        for node in temp_list:
+            self.listB.remove(node)
     # move on all the Am group of nodes and return the path by bfs algorithm
     def bfs(self, src: Node = None) -> None:
         # init all the nodes
