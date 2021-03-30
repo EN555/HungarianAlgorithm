@@ -18,8 +18,8 @@ def algo_gui(graph: Graph) -> None:
             graph_bottom_left=(0, 0), graph_top_right=(frame_width, frame_height),
             background_color='white'
         )],
-        [sg.Button("next", key='-NEXT-'),
-         sg.Text("press next to start", key='-MSG-', text_color='purple', background_color='white')]
+        [sg.Button("Exist", key='-EXIST-', button_color='red'), sg.Button("next", key='-NEXT-'),
+         sg.Text("press next to start", key='-MSG-', text_color='purple', background_color='white', size=(100, 1))]
     ]
 
     window = sg.Window("algo_gui", layout=copy.deepcopy(layout), background_color='white')
@@ -38,7 +38,7 @@ def algo_gui(graph: Graph) -> None:
     while True:  # main loop
         events, values = window.read(timeout=200)
 
-        if events is None:  # if the window is closed, exist
+        if events is None or events == '-EXIST-':  # if the window is closed, exist
             break
 
         # the first stage - dividing into sets
@@ -94,8 +94,8 @@ def algo_gui(graph: Graph) -> None:
                                            (ed.get_dest().cords[0] - radius // 2, height // 2 - ed.get_dest().cords[1]),
                                            arrow=tk.LAST, fill='blue', width=radius // 4)
                     elif ed.get_is_in():
-                        canvas.create_line((ed.get_src().cords[0] + radius // 2, height // 2 - ed.get_src().cords[1]),
-                                           (ed.get_dest().cords[0] - radius // 2, height // 2 - ed.get_dest().cords[1]),
+                        canvas.create_line((ed.get_src().cords[0] - radius // 2, height // 2 - ed.get_src().cords[1]),
+                                           (ed.get_dest().cords[0] + radius // 2, height // 2 - ed.get_dest().cords[1]),
                                            arrow=tk.LAST, fill='red', width=radius // 6)
                     else:
                         canvas.create_line((ed.get_src().cords[0] + radius // 2, height // 2 - ed.get_src().cords[1]),
