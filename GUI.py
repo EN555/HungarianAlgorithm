@@ -2,6 +2,7 @@ import PySimpleGUI as sg
 import pyautogui as ag
 from graph import *
 import time
+import Algo_GUI
 
 width, height = ag.size()   # get screen dimensions
 
@@ -23,7 +24,8 @@ layout = [        # the layout of the frame
              sg.Input(default_text='nodeID', size=(10, 1), key='-NODE2-')],
 
             [sg.Button('Exist', key='-EXIST-', button_color='red'),
-             sg.Text("", key='-ERROR_MSG-', size=(30, 1), text_color='red', background_color='white')]
+             sg.Text("", key='-ERROR_MSG-', size=(30, 1), text_color='red', background_color='white'),
+             sg.Button("start algorithm", key='-START_ALGO-')]
         ]
 
 window = sg.Window("GUI", layout=layout, background_color='white')  # the main window for the GUI
@@ -97,6 +99,12 @@ while True:  # main loop
 
         else:
             window['-ERROR_MSG-'].update("please enter nodes id's")
+
+    if event == '-START_ALGO-':
+        window.close()
+        Algo_GUI.algo_gui(graph=graph)
+        break
+
 
     time.sleep(0.05)
 window.close()
