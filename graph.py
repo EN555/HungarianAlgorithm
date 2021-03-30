@@ -40,7 +40,7 @@ class Graph:
         self.edges.append(e)
         self.nodes[node1].connectedEdges.append(e)
 
-    def get_edge(self, src:Node = None, dest:Node = None) -> Edge:
+    def get_edge(self, src: Node = None, dest: Node = None) -> Edge:
         for edge in self.get_list_edges():
             if edge.get_src() == src and edge.get_dest() == dest:
                 return edge
