@@ -33,7 +33,7 @@ class HungarianAlgo:
         self.listAm.clear()
         self.listBm.clear()
 
-    def find_m_augmenting_path(self) -> bool:  # move on all the A group nodes if find so augment
+    def find_m_augmenting_path(self) -> (bool, List):  # move on all the A group nodes if find so augment
         find = False
         path = []
         for node in self.listA:
