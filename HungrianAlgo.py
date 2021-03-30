@@ -12,7 +12,7 @@ class HungarianAlgo:
         self.listB = []
         self.listBm = []
         self.graph = graph
-        self.temp_graph= None
+        self.temp_graph = None
 
     def find_max_match(self):  # main function
         is_find = True
@@ -36,7 +36,7 @@ class HungarianAlgo:
         for node in self.listA:
             self.bfs(node)
             path = self.shortest_path(node)
-            if path != None: # if find path need to update the sets
+            if path is not None:     # if find path need to update the sets
                 self.augment_the_path(path)
                 find = True
                 break
@@ -84,7 +84,7 @@ class HungarianAlgo:
 
     def divide_to_set(self, graph: Graph = None):
         for node in graph.get_dic_nodes().values():
-            if node.get_side()== 0:
+            if node.get_side() == 'left':
                 self.listA.append(node)
             else:
                 self.listB.append(node)
