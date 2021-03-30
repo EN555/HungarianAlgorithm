@@ -144,15 +144,14 @@ class HungarianAlgo:
                 curr = node
                 path.append(curr)
                 break
-        while curr.get_tag4() != None:
-            path.append(curr.get_tag4())
-            curr = curr.get_tag4()
-        # path.append(src)
-        path.reverse()
-        if path[-1] in self.listB:  # check of the last node in B group
-            return path
-        else:
-            return None
+        if curr != None:
+            while curr.get_tag4() != None:
+                path.append(curr.get_tag4())
+                curr = curr.get_tag4()
+                path.reverse()
+                if path[-1] in self.listB:  # check of the last node in B group
+                    return path
+        return None
 
     def get_listA(self):
         return self.listA
@@ -180,24 +179,30 @@ if __name__ == '__main__':
 # b ----- e
 ###############
 
-    a = Node((0, 0), 0)
-    b = Node((0, 0), 0)
-    c = Node((0, 0), 0)
-    d = Node((0, 0), 1)
-    e = Node((0, 0), 1)
-    f = Node((0, 0), 1)
+    node1 = Node((0, 0), 0)
+    node2 = Node((0, 0), 0)
+    node3 = Node((0, 0), 1)
+    node4 = Node((0, 0), 1)
+    node5 = Node((0, 0), 1)
+    node6 = Node((0, 0), 1)
+    node7 = Node((0, 0), 1)
+    node8 = Node((0, 0), 1)
+    node9 = Node((0, 0), 1)
 
     g = Graph()
-    g.add_node(a), g.add_node(b), g.add_node(c), g.add_node(d), g.add_node(e), g.add_node(f)
+    g.add_node(node1), g.add_node(node2), g.add_node(node3), g.add_node(node4), g.add_node(node5)
+    g.add_node(node6), g.add_node(node7), g.add_node(node8), g.add_node(node9)
+    g.connect(0, 2)
     g.connect(0, 3)
     g.connect(0, 4)
     g.connect(0, 5)
+    g.connect(0, 6)
+    g.connect(0, 7)
     g.connect(1, 3)
     g.connect(1, 4)
     g.connect(1, 5)
-    g.connect(2, 3)
-    g.connect(2, 4)
-    g.connect(2, 5)
+    g.connect(1, 6)
+    g.connect(1, 7)
 
     h = HungarianAlgo(g)
     h.find_max_match()
