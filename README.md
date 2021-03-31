@@ -10,3 +10,4 @@ givinig the graph as parameter in the constractor. to run the algorighm, the met
 
 GUI.py, Algo_GUI.py - this provide a friendly GUI for constracting a bipartite graph, and visualizing the algorighm work on it. 
 the GUI can be run by simply executing the GUI.py file ("python GUI.py" in cmd).
+ note: you need the libraries 'PySimpleGUI' and 'pyautogui' to be installed on your computer. you can run 'pip install PySimpleGUI' and 'pip install pyautogui' in cmd to install them.
