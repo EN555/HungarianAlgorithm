@@ -175,48 +175,6 @@ class HungarianAlgo:
     def get_graph(self):
         return self.graph
 
-if __name__ == '__main__':
-###############
-# a ----- d
-# b ----- e
-###############
-
-    node1 = Node((0, 0), 'left')
-    node2 = Node((0, 0), 'left')
-    node3 = Node((0, 0), 'right')
-    node4 = Node((0, 0), 'right')
-    node5 = Node((0, 0), 'right')
-    node6 = Node((0, 0), 'right')
-    node7 = Node((0, 0), 'right')
-    node8 = Node((0, 0), 'right')
-    node9 = Node((0, 0), 'right')
-    node10 = Node((0, 0), 'right')
-
-    g = Graph()
-    g.add_node(node1), g.add_node(node2), g.add_node(node3), g.add_node(node4), g.add_node(node5)
-    g.add_node(node6), g.add_node(node7), g.add_node(node8), g.add_node(node9), g.add_node(node10)
-    g.connect(0, 2)
-    g.connect(0, 3)
-    g.connect(0, 4)
-    g.connect(0, 5)
-    g.connect(0, 6)
-    g.connect(0, 7)
-    g.connect(0, 9)
-    g.connect(1, 3)
-    g.connect(1, 4)
-    g.connect(1, 5)
-    g.connect(1, 6)
-    g.connect(1, 7)
-
-    h = HungarianAlgo(g)
-    h.find_max_match()
-
-
-######################################
-    print("The result is: ")
-    for edge in h.get_graph().get_list_edges():
-        print(str(edge) + " " + str(edge.get_is_in()))
-#####################################
 
 
 
