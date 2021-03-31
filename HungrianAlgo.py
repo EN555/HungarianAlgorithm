@@ -79,9 +79,9 @@ class HungarianAlgo:
                 edge2 = self.graph.get_edge_by_id(path[i+1].get_ID(), path[i].get_ID())
                 edge2.set_is_in(True)
             else:
-                edge1 = self.graph.get_edge_by_id(path[i].get_ID(), path[i + 1].get_ID())
+                edge1 = self.graph.get_edge(path[i].get_ID(), path[i + 1].get_ID())
                 edge1.set_is_in(False)
-                edge2 = self.graph.get_edge_by_id(path[i + 1].get_ID(), path[i].get_ID())
+                edge2 = self.graph.get_edge(path[i].get_ID(), path[i + 1].get_ID())
                 edge2.set_is_in(False)
 
     def divide_to_set(self, graph: Graph = None):
@@ -112,7 +112,6 @@ class HungarianAlgo:
                     self.listA.remove(edge.get_dest())
         for node in temp_list:
             self.listB.remove(node)
-        temp_list.clear()
     # move on all the Am group of nodes and return the path by bfs algorithm
     def bfs(self, src: Node = None) -> None:
         # init all the nodes
@@ -151,9 +150,9 @@ class HungarianAlgo:
             while curr.get_tag4() != None:
                 path.append(curr.get_tag4())
                 curr = curr.get_tag4()
-            path.reverse()
-            if path[-1] in self.listB:  # check of the last node in B group
-                return path
+                path.reverse()
+                if path[-1] in self.listB:  # check of the last node in B group
+                    return path
         return None
 
     def get_listA(self):
@@ -176,58 +175,6 @@ class HungarianAlgo:
     def get_graph(self):
         return self.graph
 
-if __name__ == '__main__':
-###############
-# a ----- d
-# b ----- e
-###############
-
-    node0 = Node((0, 0), 'left')
-    node1 = Node((0, 0), 'left')
-    node2 = Node((0, 0), 'left')
-    node3 = Node((0, 0), 'right')
-    node4 = Node((0, 0), 'right')
-    node5 = Node((0, 0), 'right')
-    node6 = Node((0, 0), 'right')
-    node7 = Node((0, 0), 'right')
-    node8 = Node((0, 0), 'right')
-    # node10 = Node((0, 0), 'right')
-    # node11 = Node((0, 0), 'right')
-    # node12 = Node((0, 0), 'right')
-    # node13 = Node((0, 0), 'right')
-    # node14 = Node((0, 0), 'right')
-
-    g = Graph()
-    g.add_node(node0), g.add_node(node1), g.add_node(node2), g.add_node(node3), g.add_node(node4), g.add_node(node5)
-    g.add_node(node6), g.add_node(node7), g.add_node(node8)
-    # , g.add_node(node9)
-    # , g.add_node(node10)
-    # g.add_node(node11), g.add_node(node12), g.add_node(node13), g.add_node(node14)
-    g.connect(0, 3)
-    g.connect(0, 6)
-    g.connect(1, 3)
-    g.connect(1, 7)
-    g.connect(1, 8)
-    g.connect(2, 3)
-    g.connect(2, 4)
-    g.connect(2, 8)
-    # g.connect(1, 6)
-    # g.connect(1, 7)
-    # g.connect(2, 8)
-    # g.connect(3, 9)
-    # g.connect(5, 12)
-    # g.connect(5, 13)
-    # g.connect(4, 13)
-
-    h = HungarianAlgo(g)
-    h.find_max_match()
-
-
-######################################
-    print("The result is: ")
-    for edge in h.get_graph().get_list_edges():
-        print(str(edge) + " " + str(edge.get_is_in()))
-#####################################
 
 
 
