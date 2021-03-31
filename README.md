@@ -9,5 +9,5 @@ in order to use this, the user need to construct a  bipartite graph using graph.
 giving the graph as parameter in the constructor. to run the algorithm, the method 'find_max_match' need to be called.
 
 GUI.py, Algo_GUI.py - this provides a friendly GUI for constructing a bipartite graph, and visualizing the algorithm work on it. 
-the GUI can be run by simply executing the hungarian_method.lnk file (double click) or executing the GUI.py file ("python GUI.py" in cmd).
+the GUI can be run by simply executing the GUI.py file ("python GUI.py" in cmd).
  note: you need the libraries 'PySimpleGUI' and 'pyautogui' to be installed on your computer. you can run 'pip install PySimpleGUI' and 'pip install pyautogui' in cmd to install them.
