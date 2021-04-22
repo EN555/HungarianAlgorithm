@@ -1,4 +1,12 @@
+### Hungarian Algorithm 
+
 This is an implementation of the Hungarian method for finding a perfect matching in a bipartite graphs, and a visual representation of the algorithm work, step-by-step.
+
+For the the use Gui you need to operate him from the main of [GUI.py](https://github.com/EN555/HungarianAlgorithm/blob/master/GUI.py)
+
+After that you 
+
+![image](https://user-images.githubusercontent.com/61500507/115743270-31291880-a39a-11eb-8e16-92c19accae9f.png)
 
 the project has three parts:
 graph.py, graph_utils.py - a simple implementation of an not-weighted graph. the graph can be use as both directed and un-directed, by using the matching methods: 'connect' or 'connect_direct'. 
