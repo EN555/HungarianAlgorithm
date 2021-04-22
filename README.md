@@ -6,14 +6,14 @@ For the the use Gui you need to operate him from the main of [GUI.py](https://gi
 
 After that you have some option,
 
-![image](https://user-images.githubusercontent.com/61500507/115743270-31291880-a39a-11eb-8e16-92c19accae9f.png)
+<img src="https://user-images.githubusercontent.com/61500507/115743270-31291880-a39a-11eb-8e16-92c19accae9f.png" width="600" height="150">
 
 you can choose how to build the bipartite graph' you can add nodes to the left side, to right side and how to connect between them,
 after that you can choose to start the algorithm, and see how the algorithm work,
 
-<img src="https://user-images.githubusercontent.com/61500507/115744738-831e6e00-a39b-11eb-8d2a-e727067e51ce.png" width="20" height="20">
+<img src="https://user-images.githubusercontent.com/61500507/115744738-831e6e00-a39b-11eb-8d2a-e727067e51ce.png" width="500" height="350">
 
-the project has three parts:
+the pr7ject has three parts:
 graph.py, graph_utils.py - a simple implementation of an not-weighted graph. the graph can be use as both directed and un-directed, by using the matching methods: 'connect' or 'connect_direct'. 
 it is up to the user to make sure he is using the right methods.
 
