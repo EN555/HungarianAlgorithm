@@ -25,7 +25,7 @@ def run_GUI():
          sg.Input(default_text='nodeID', size=(10, 1), key='-NODE1-'),
          sg.Input(default_text='nodeID', size=(10, 1), key='-NODE2-')],
 
-        [sg.Button('Exist', key='-EXIST-', button_color='red'),
+        [sg.Button('Exit', key='-EXIT-', button_color='red'),
          sg.Text("", key='-ERROR_MSG-', size=(30, 1), text_color='red', background_color='white'),
          sg.Button("start algorithm", key='-START_ALGO-')]
     ]
@@ -44,8 +44,8 @@ def run_GUI():
     while True:  # main loop
         event, value = window.read()
 
-        # check if exist button was press (or window closed), and exist
-        if event is None or event == '-EXIST-':
+        # check if exit button was press (or window closed), and exit
+        if event is None or event == '-EXIT-':
             break
 
         # if 'add left' button was pressed

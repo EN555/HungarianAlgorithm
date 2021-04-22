@@ -18,7 +18,7 @@ def algo_gui(graph: Graph) -> None:
             graph_bottom_left=(0, 0), graph_top_right=(frame_width, frame_height),
             background_color='white'
         )],
-        [sg.Button("Exist", key='-EXIST-', button_color='red'), sg.Button("next", key='-NEXT-'),
+        [sg.Button("Exit", key='-EXIT-', button_color='red'), sg.Button("next", key='-NEXT-'),
          sg.Text("press next to start", key='-MSG-', text_color='purple', background_color='white', size=(100, 1))]
     ]
 
@@ -38,7 +38,7 @@ def algo_gui(graph: Graph) -> None:
     while True:  # main loop
         events, values = window.read(timeout=200)
 
-        if events is None or events == '-EXIST-':  # if the window is closed, exist
+        if events is None or events == '-EXIT-':  # if the window is closed, exit
             break
 
         # the first stage - dividing into sets
