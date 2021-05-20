@@ -8,6 +8,7 @@ class Node:
         self.id: int = Node.__idCounter
         Node.__idCounter += 1
         self.connectedEdges: List[Edge] = []
+        self.inEdges: List[Edge] = []       # only for directed graph
         self.cords = cords
         self.side = side       #bipartide graph
         self.tag1: any = None  # for algorithms
@@ -23,6 +24,12 @@ class Node:
 
     def get_list_edge(self):
         return self.connectedEdges
+
+    def get_edges_in(self):
+        return self.inEdges
+
+    def is_neighbor(self, nei: int):
+        return any(list(map(lambda e: e.get_dest().get_ID() == nei, self.connectedEdges)))
 
     def set_tag1(self, tag: any = None):
         self.tag1 = tag

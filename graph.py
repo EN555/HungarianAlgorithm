@@ -8,7 +8,7 @@ class Graph:
         self.edges: List[Edge] = []
 
     def add_node(self, node: Node) -> None:
-        self.nodes.update({node.id: node})
+        self.nodes.update({node.get_ID(): node})
 
     def connect(self, node1: int, node2: int) -> None:
         if node1 not in self.nodes.keys() or node2 not in self.nodes.keys():
@@ -39,6 +39,7 @@ class Graph:
         e = Edge(self.nodes[node1], self.nodes[node2])
         self.edges.append(e)
         self.nodes[node1].connectedEdges.append(e)
+        self.nodes[node2].inEdges.append(e)
 
     def get_edge(self, src: Node = None, dest: Node = None) -> Edge:
         for edge in self.get_list_edges():
@@ -63,3 +64,6 @@ class Graph:
 
     def num_of_edges(self) -> int:
         return len(self.edges)
+
+    def has_edge(self, x: int, y: int):
+        return self.nodes[x].is_neighbor(y)
