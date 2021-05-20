@@ -101,7 +101,7 @@ def algo_gui(graph: Graph) -> None:
                         canvas.create_line((ed.get_src().cords[0] + radius // 2, height // 2 - ed.get_src().cords[1]),
                                            (ed.get_dest().cords[0] - radius // 2, height // 2 - ed.get_dest().cords[1]),
                                            arrow=tk.LAST, fill='black', width=radius // 6)
-                window['-MSG-'].update("Founded an M augmenting path")
+                window['-MSG-'].update("Found an M augmenting path")
                 stage = 4
             else:
                 stage = -1  # should be msg "not path found, algo done!" + stage = -1
