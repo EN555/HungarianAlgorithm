@@ -28,7 +28,7 @@ after that you can choose to start the algorithm, and see how the algorithm work
 
 
 *The algorithm divide for these parts:*
-1. Divide all the nodes for four sets represent by four colors- yellow represent A -nodes at the left side that not contain edge that in the match, blue- represent Am - nodes that contain an edge that contain in the match, green- represent B-nodes at the right side that not contain edge that in the match, purple represent Bm - nodes that contain an edge that contain in the match.
+1. Divide all the nodes for four sets represent by four colors- yellow represent A -nodes at the left side that not contain match's edge, blue- represent Am - nodes that contain match's edge, green- represent B-nodes at the right side that not contain match's edge, purple represent Bm - nodes that contain an edge that contain match's edge.
 
 2. Convert the undirected graph to directed graph as describe in the algorithm.
 
