@@ -18,7 +18,7 @@ The GUI can be run by simply executing the GUI.py file ("python GUI.py" in cmd).
 
 For the the use Gui you need to operate him from the main of [GUI.py](https://github.com/EN555/HungarianAlgorithm/blob/master/GUI.py)
 
-After that you built the graph 
+*First build the graph,*
 
 you can choose how to build the bipartite graph you can add nodes to the left side, to right side and how to connect between them,
 after that you can choose to start the algorithm, and see how the algorithm work,
