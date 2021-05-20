@@ -18,11 +18,11 @@ def algo_gui(graph: Graph) -> None:
             graph_bottom_left=(0, 0), graph_top_right=(frame_width, frame_height),
             background_color='white'
         )],
-        [sg.Button("Exist", key='-EXIST-', button_color='red'), sg.Button("next", key='-NEXT-'),
-         sg.Text("press next to start", key='-MSG-', text_color='purple', background_color='white', size=(100, 1))]
+        [sg.Button("Exit", key='-EXIT-', button_color='red'), sg.Button("Next", key='-NEXT-'),
+         sg.Text("Press next to continue", key='-MSG-', text_color='purple', background_color='white', size=(100, 1))]
     ]
 
-    window = sg.Window("algo_gui", layout=copy.deepcopy(layout), background_color='white')
+    window = sg.Window("Algo_Gui", layout=copy.deepcopy(layout), background_color='white')
     window.finalize()
 
     stage = 1
@@ -38,7 +38,7 @@ def algo_gui(graph: Graph) -> None:
     while True:  # main loop
         events, values = window.read(timeout=200)
 
-        if events is None or events == '-EXIST-':  # if the window is closed, exist
+        if events is None or events == '-EXIT-':  # if the window is closed, exist
             break
 
         # the first stage - dividing into sets
@@ -51,7 +51,7 @@ def algo_gui(graph: Graph) -> None:
             # draw the edges - red if in match, black if not
             draw_edges(window, algo)
 
-            window['-MSG-'].update("divided the node into the four groups described in the algorithm")
+            window['-MSG-'].update("Divided the node into the four groups as described in the algorithm")
 
             stage = 2
 
@@ -74,7 +74,7 @@ def algo_gui(graph: Graph) -> None:
                     canvas.create_line((ed.get_src().cords[0] + radius // 2, height // 2 - ed.get_src().cords[1]),
                                        (ed.get_dest().cords[0] - radius // 2, height // 2 - ed.get_dest().cords[1]),
                                        arrow=tk.LAST, fill='black', width=radius // 6)
-            window['-MSG-'].update("turned the graph to a connected graph")
+            window['-MSG-'].update("Turned the graph to a connected graph")
             stage = 3
 
         elif events == '-NEXT-' and stage == 3:
@@ -101,13 +101,13 @@ def algo_gui(graph: Graph) -> None:
                         canvas.create_line((ed.get_src().cords[0] + radius // 2, height // 2 - ed.get_src().cords[1]),
                                            (ed.get_dest().cords[0] - radius // 2, height // 2 - ed.get_dest().cords[1]),
                                            arrow=tk.LAST, fill='black', width=radius // 6)
-                window['-MSG-'].update("founded an M augmenting path")
+                window['-MSG-'].update("Founded an M augmenting path")
                 stage = 4
             else:
                 stage = -1  # should be msg "not path found, algo done!" + stage = -1
                 draw_nodes(window, algo, frame_height, frame_width, left_line, right_line, radius, gap)
                 draw_edges(window, algo)
-                window['-MSG-'].update("no M augmenting path found, the algorithm is done!")
+                window['-MSG-'].update("The algorithm is done!")
 
         elif events == '-NEXT-' and stage == 4:
             algo.augment_the_path(path)
@@ -118,7 +118,7 @@ def algo_gui(graph: Graph) -> None:
 
             algo.clear_All_lists()
 
-            window['-MSG-'].update("augmented the path")
+            window['-MSG-'].update("Augmented the path")
             stage = 1
 
     window.close()

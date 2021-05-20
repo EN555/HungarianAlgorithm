@@ -20,14 +20,14 @@ def run_GUI():
             background_color='white'
         )],
 
-        [sg.Button("add node to left", key='-ADD_LEFT-'), sg.Button("add node to right", key='-ADD_RIGHT-'),
-         sg.Button("connect", key='-CONNECT-'),
+        [sg.Button("Add Node To Left", key='-ADD_LEFT-'), sg.Button("Add Node To Right", key='-ADD_RIGHT-'),
+         sg.Button("Connect", key='-CONNECT-'),
          sg.Input(default_text='nodeID', size=(10, 1), key='-NODE1-'),
          sg.Input(default_text='nodeID', size=(10, 1), key='-NODE2-')],
 
-        [sg.Button('Exist', key='-EXIST-', button_color='red'),
+        [sg.Button('Exit', key='-EXIT-', button_color='red'),
          sg.Text("", key='-ERROR_MSG-', size=(30, 1), text_color='red', background_color='white'),
-         sg.Button("start algorithm", key='-START_ALGO-')]
+         sg.Button("Start Algorithm", key='-START_ALGO-')]
     ]
 
     window = sg.Window("GUI", layout=layout, background_color='white')  # the main window for the GUI
@@ -45,7 +45,7 @@ def run_GUI():
         event, value = window.read()
 
         # check if exist button was press (or window closed), and exist
-        if event is None or event == '-EXIST-':
+        if event is None or event == '-EXIT-':
             break
 
         # if 'add left' button was pressed
@@ -93,7 +93,7 @@ def run_GUI():
             # make sure the input nodes are valid
             if n1.isdigit() and n2.isdigit() and int(n1) in graph.nodes.keys() and int(n2) in graph.nodes.keys():
                 if graph.nodes[int(n1)].side == graph.nodes[int(n2)].side:
-                    window['-ERROR_MSG-'].update("nodes must be on different sides")
+                    window['-ERROR_MSG-'].update("Error: nodes must be in different sides")
                 else:  # draw the line
                     window['-ERROR_MSG-'].update("")
                     graph.connect(int(n1), int(n2))
@@ -101,7 +101,7 @@ def run_GUI():
                                                 width=2)
 
             else:
-                window['-ERROR_MSG-'].update("please enter nodes id's")
+                window['-ERROR_MSG-'].update("Please enter nodes id's")
 
         if event == '-START_ALGO-':
             window.close()
