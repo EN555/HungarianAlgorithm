@@ -1,6 +1,6 @@
 import PySimpleGUI as sg
 import pyautogui as ag
-from graph import *
+from Graph import *
 import time
 import Algo_GUI
 

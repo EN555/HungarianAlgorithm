@@ -1,6 +1,6 @@
 from Algo_GUI import *
-from graph import *
-from graph_utils import *
+from Graph import *
+from GraphUtils import *
 from HungrianAlgo import *
 from GUI import *
 
