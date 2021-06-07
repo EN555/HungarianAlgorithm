@@ -46,11 +46,13 @@ class HungarianAlgo:
     def convert_to_direct_graph(self):  # create direct graph as hungarian algorithm required
         self.temp_graph = Graph()
 
+        # copy the nodes
         for node in self.graph.get_dic_nodes().values():
             new_node = Node(side=node.get_side())
             new_node.set_ID(node.get_ID())
             self.temp_graph.add_node(new_node)
 
+        # connect Bm to Am
         for x, y in itertools.product(self.listBm, self.listAm):
             if self.graph.has_edge(x.get_ID(), y.get_ID()) and self.graph.check_is_in(x.get_ID(), y.get_ID()):
                 self.temp_graph.connect_direct(x.get_ID(), y.get_ID())
@@ -58,53 +60,19 @@ class HungarianAlgo:
             elif self.graph.has_edge(x.get_ID(), y.get_ID()) and not self.graph.check_is_in(x.get_ID(), y.get_ID()):
                 self.temp_graph.connect_direct(y.get_ID(), x.get_ID())
 
+        # connect the rest
         for x, y in (itertools.chain(itertools.product(self.listA, self.listB),
                                      itertools.product(self.listA, self.listBm),
                                      itertools.product(self.listAm, self.listB))):
             if self.graph.has_edge(x.get_ID(), y.get_ID()):
                 self.temp_graph.connect_direct(x.get_ID(), y.get_ID())
 
-        # # copy all the nodes from the graph
-        # for node in self.graph.get_dic_nodes().values():
-        #     new_node = Node((0, 0), node.get_side())
-        #     new_node.set_ID(node.get_ID())
-        #     self.temp_graph.add_node(new_node)
-        # 
-        # # move on all the A\m group
-        # for node in self.listA:  # connect all the graph
-        #     for edge in node.get_list_edge():
-        #         self.temp_graph.connect_direct(edge.get_src().get_ID(), edge.get_dest().get_ID())
-        # 
-        # # move on all the  Bm group
-        # for node in self.listBm:  # connect to Am
-        #     for edge in node.get_list_edge():
-        #         if self.graph.check_is_in(edge.get_src().get_ID(), edge.get_dest().get_ID()):
-        #             self.temp_graph.connect_direct(edge.get_src().get_ID(), edge.get_dest().get_ID())
-        #             self.temp_graph.set_is_in(edge.get_src().get_ID(), edge.get_dest().get_ID(), True)
-        # 
-        # # move on all the Am group
-        # for node in self.listAm:  # connect all the graph
-        #     for edge in node.get_list_edge():
-        #         if self.graph.check_is_in(edge.get_src().get_ID(), edge.get_dest().get_ID()):
-        #             self.temp_graph.connect_direct(edge.get_src().get_ID(), edge.get_dest().get_ID())
-
     def augment_the_path(self, path: List = None):  # do it for the original graph
         for i in range(0, len(path) - 1):
-            edge1 = self.graph.get_edge_by_id(path[i].get_ID(), path[i + 1].get_ID())
+            edge1 = self.graph.get_edge_by_id(path[i].get_ID(), path[i + 1].get_ID())   # get edges
             edge2 = self.graph.get_edge_by_id(path[i + 1].get_ID(), path[i].get_ID())
-            edge1.set_is_in(not edge1.get_is_in())
+            edge1.set_is_in(not edge1.get_is_in())  # augment
             edge2.set_is_in(not edge2.get_is_in())
-
-            # if i % 2 == 0:
-            #     edge1 = self.graph.get_edge_by_id(path[i].get_ID(), path[i + 1].get_ID())
-            #     edge1.set_is_in(True)
-            #     edge2 = self.graph.get_edge_by_id(path[i + 1].get_ID(), path[i].get_ID())
-            #     edge2.set_is_in(True)
-            # else:
-            #     edge1 = self.graph.get_edge(path[i].get_ID(), path[i + 1].get_ID())
-            #     edge1.set_is_in(False)
-            #     edge2 = self.graph.get_edge(path[i].get_ID(), path[i + 1].get_ID())
-            #     edge2.set_is_in(False)
 
     def clear_All_lists(self):
         self.listA.clear()  # delete all the the items from the lists
@@ -130,37 +98,6 @@ class HungarianAlgo:
                        (((any(list(map(lambda e: e.get_is_in(), node.get_list_edge())))) or
                          (any(list(map(lambda e: e.get_is_in(), node.get_edges_in()))))) and
                         node.get_side() == "right")]
-
-        # for node in graph.get_dic_nodes().values():
-        #     if node.get_side() == 'left':
-        #         self.listA.append(node)
-        #     else:
-        #         self.listB.append(node)
-        #
-        # # divide A to two sets A intersection M, A\m and same for B
-        # temp_list = []
-        # for node in self.listA:  # insert to Am
-        #     for edge in node.get_list_edge():
-        #         if edge.get_is_in():  # if one of the edge already saturated the node already saturated
-        #             self.listAm.append(node)
-        #             self.listBm.append(edge.get_dest())
-        #             temp_list.append(node)
-        #             self.listB.remove(edge.get_dest())
-        #             break  # if already insert to Am
-        # for node in temp_list:
-        #     self.listA.remove(node)
-        # temp_list.clear()
-        #
-        # for node in self.listB:  # insert to Bm
-        #     for edge in node.get_list_edge():
-        #         if edge.get_is_in():
-        #             self.listBm.append(node)
-        #             self.listAm.append(edge.get_dest())
-        #             temp_list.append(node)
-        #             self.listA.remove(edge.get_dest())
-        #             break
-        # for node in temp_list:
-        #     self.listB.remove(node)
 
     """
     move on all the Am group of nodes and return the path by bfs algorithm
