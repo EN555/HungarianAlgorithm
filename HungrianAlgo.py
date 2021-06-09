@@ -37,7 +37,7 @@ class HungarianAlgo:
         path = []
         for node in self.listA:
             self.bfs(node)
-            path = self.shortest_path(node)
+            path = self.find_augmanting_path(node)
             if path is not None:  # if find path need to update the sets
                 find = True
                 break
@@ -82,18 +82,22 @@ class HungarianAlgo:
 
     def divide_to_set(self, graph: Graph = None):
 
+        # list of left nodes not matched
         self.listA = [node for node in graph.get_dic_nodes().values() if
                       (((not any(list(map(lambda e: e.get_is_in(), node.get_list_edge())))) and
                         (not any(list(map(lambda e: e.get_is_in(), node.get_edges_in()))))) and
                        node.get_side() == "left")]
+        # list of left nodes matched
         self.listAm = [node for node in graph.get_dic_nodes().values() if
                        (((any(list(map(lambda e: e.get_is_in(), node.get_list_edge())))) or
                          (any(list(map(lambda e: e.get_is_in(), node.get_edges_in()))))) and
                         node.get_side() == "left")]
+        # list of right nodes not matched
         self.listB = [node for node in graph.get_dic_nodes().values() if
                       (((not any(list(map(lambda e: e.get_is_in(), node.get_list_edge())))) and
                         (not any(list(map(lambda e: e.get_is_in(), node.get_edges_in()))))) and
                        node.get_side() == "right")]
+        # list of right nodes matched
         self.listBm = [node for node in graph.get_dic_nodes().values() if
                        (((any(list(map(lambda e: e.get_is_in(), node.get_list_edge())))) or
                          (any(list(map(lambda e: e.get_is_in(), node.get_edges_in()))))) and
@@ -128,7 +132,7 @@ class HungarianAlgo:
                         nei.set_tag4(curr_node)
             curr_node.set_tag3(True)
 
-    def shortest_path(self, src: Node = None) -> list:  # if have any path return the path
+    def find_augmanting_path(self, src: Node = None) -> list:  # if have any path return the path
         path = []
         curr = None
         for node in self.listB:
